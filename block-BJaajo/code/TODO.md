@@ -60,6 +60,15 @@ setTimeout(function exec() {
 }, 0);
 runWhileLoopForNSeconds(3);
 console.log('Third');
+
+
+/*
+0ms First
+--- Now settimeout goes to callback queue immediately and waits for runWhile to finish from the call stack - since its a part of JS
+3000ms Third
+3001ms Second
+
+*/
 ```
 
 6. Convert the synchronous code given below into asynchronous. If you execute this code it will print one, two and three. Change the code in such a way that it should print `one`, `three` and `two`. You are not allowed to move the code up and down.
@@ -68,6 +77,11 @@ console.log('Third');
 console.log('one');
 console.log('two');
 console.log('three');
+
+//NEW CODE
+console.log('one');
+setTimeout(() => console.log('two'), 0)
+console.log('three');
 ```
 
 7. Convert the synchronous code given below into asynchronous. If you execute this code it will print one, two and three. Change the code in such a way that it should print `one`, `three` and `two`. You are not allowed to move the code up and down.
@@ -75,14 +89,16 @@ console.log('three');
 ```js
 console.log('one');
 console.log('two');
-console.log('three');
+console.log('three'); //same as above
 ```
 
 8. Write a function named `asyncForEach` that is similar to `forEach`. But `asyncForEach` is asynchronous in nature rather than synchronous.
 
 ```js
-funciton asyncForEach(){
-  //
+function asyncForEach(arr, cb){
+  setTimeout(() => {
+    arr.forEach((ele) => cb(ele))
+  },0)
 }
 //  Output of the function below should be
 // one
@@ -100,14 +116,19 @@ console.log('three');
 <!-- 1, 2, 3, 4, 5 -->
 <!-- Last Call -->
 
+just add the last call to web api queue after for each function
+
 Convert the code below in such way that the output should be the one below
 
 <!-- First Call -->
 <!-- Last Call -->
 <!-- 1, 2, 3, 4, 5 -->
 
+just add the for each to web api queue so first and last call will execute first̀
+
+
 ```js
 console.log('First Call');
-[1, 2, 3, 4, 5].firEach((num) => console.log(num));
+[1, 2, 3, 4, 5].forEach((num) => console.log(num));
 console.log('Last Call');
 ```
