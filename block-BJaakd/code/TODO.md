@@ -1,19 +1,24 @@
 1. Create a promise. Have it resolve with a value of `Promise Resolved!` in resolve after a delay of 1000ms, using `setTimeout`. Print the contents of the promise after it has been resolved by passing `console.log` to `.then`
 
 ```js
-// Your code
+let promise = new Promise((res, rej)=> {
+    setTimeout(() => res(`promise resolved`), 1000)
+}).then((value) => console.log(value))
 ```
 
 2. Create another promise. Now have it reject with a value of `Rejected Promise!` without using `setTimeout`. Print the contents of the promise after it has been rejected by passing console.log to `.catch`
 
 ```js
-// Your code
+let promise = new Promise((res, rej) => rej(`promise rejected`))
+.catch((value) => console.log(value))
 ```
 
 3. Create another promise. Now have it reject with a value of `Rejected Promise!` without using `setTimeout`. Print the contents of the promise after it has been rejected by passing console.log to `.catch` and also use `.finally` to log message `Promise Settled!`.
 
 ```js
-// Your code
+let promise = new Promise((res, rej) => rej(`Rejected Promise`))
+.catch((value) => console.log(value)).finally((val) => console.log(`Promise Setlled`))
+```
 ```
 
 4. What will be the output of the code below.
