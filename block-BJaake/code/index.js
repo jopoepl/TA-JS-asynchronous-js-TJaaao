@@ -5,6 +5,7 @@ let a = document.querySelector(`a`)
 let newsSource = document.querySelector(`select`)
 
 
+
 function createUI(data){
     for(let i =0; i< data.length; i++) {
         let article =  document.createElement(`article`)
@@ -26,23 +27,23 @@ function createUI(data){
     }
 }
 
-function handleNewsSource(e){
-    console.log(event)
-    let source = e.target.value;
-    
-    let filteredData = data.filter((val) => {
-        return source === val;
-    })
-    createUI(filteredData)
-
-}
+// function handleNewsSource(e){
+//     console.log(event)
+//     let source = e;
+//     console.log(data)
+//     let filteredData = data.filter((val) => val === source)
+//     createUI(filteredData)
+// }
 
 function fetchData(url){
-    
-    fetch(url).then((res) => res.json()).then(data => {
-        console.log(data)
+    fetch(url).then((res) => res.json()).then((data) => {
         createUI(data)
-        newsSource.addEventListener("click", handleNewsSource(event))
+        newsSource.addEventListener("change", (event) => {
+            let source = event.target.value;
+         let filteredData = data.filter((val) => val.newsSite === source)
+         cont.innerHTML = "";
+          createUI(filteredData)
+        })
     }) 
 }
 fetchData(`https://api.spaceflightnewsapi.net/v3/articles?_limit=30`)
