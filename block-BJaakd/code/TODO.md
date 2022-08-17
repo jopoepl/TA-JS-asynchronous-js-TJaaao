@@ -10,16 +10,17 @@ let promise = new Promise((res, rej)=> {
 
 ```js
 let promise = new Promise((res, rej) => rej(`promise rejected`))
-.catch((value) => console.log(value))
+console.log(promise)
+promise..catch((value) => console.log(value))
 ```
 
 3. Create another promise. Now have it reject with a value of `Rejected Promise!` without using `setTimeout`. Print the contents of the promise after it has been rejected by passing console.log to `.catch` and also use `.finally` to log message `Promise Settled!`.
 
 ```js
 let promise = new Promise((res, rej) => rej(`Rejected Promise`))
-.catch((value) => console.log(value)).finally((val) => console.log(`Promise Setlled`))
+promise.catch((value) => console.log(value)).finally((val) => console.log(`Promise Setlled`))
 ```
-```
+
 
 4. What will be the output of the code below.
 
@@ -33,12 +34,22 @@ setTimeout(() => console.log('B'), 0); // callback queue
 Promise.resolve().then(() => console.log('C'));
 
 console.log('D');
+
+A
+D
+C
+B
 ```
 
 5. Write a function named `wait` that accepts `time` in ms returns a promise. The promise gets resolved after given time.
 
 ```js
-// Your code
+function wait(ms){
+    return new Promise((res,rej) => {
+        setTimeout(()=> res(`resolved`), ms)
+    })
+}
+wait(1000).then(console.log)
 ```
 
 6. Do the following:
@@ -51,7 +62,17 @@ console.log('D');
 - Catch the error using `.catch`
 
 ```js
-// Your code
+let promise = new Promise((res, rej)=> {
+    res(21)
+})
+
+promise.then((val)=> val + 10).then((val) => val + 100)
+.then(val => {
+    if(val > 100){
+        throw new Error(`something went wrong`)
+    }
+})
+.catch(console.log)
 ```
 
 7. Do the following:
@@ -63,7 +84,12 @@ console.log('D');
 - Use `.then` and log the value
 
 ```js
-// Your code
+let promise = new Promise((res, rej)=> {
+    res([`A`])
+}).then(arr => arr.concat(`B`))
+.then((arr)=> Object.assign({}, arr))
+.then(console.log)
+
 ```
 
 8. Do the following:
@@ -74,7 +100,22 @@ console.log('D');
 - Chain `.then` on above and return `4` also check the value you get access to by logging
 
 ```js
-// Your code
+let first = new Promise((res, rej)=> {
+    res(1)
+})
+
+first.then((val) => {
+    console.log(val)
+    return 2
+})
+.then((val) => {
+    console.log(val)
+    return 3
+})
+.then((val) => {
+    console.log(val)
+    return 4
+})
 ```
 
 9. Do the following:
@@ -90,6 +131,10 @@ console.log('D');
 
 10. Try to understand the difference between the problem 8 and 9. Write your observation.
 
+In Q 8 were were chaining then on the first Promise and returning a new promise using the using of the previous resolved promise. 
+In Q 9 we are just using multiple then on a single promise.
+
+
 11. Do the following
 
 - Create a promise and resolve it with `John`
@@ -98,5 +143,14 @@ console.log('D');
 - Use `.then` to log the value
 
 ```js
-// Your code
+let first = new Promise((res, rej)=> {
+    res(`John`)
+}).then((val) => {
+    return Promise.resolve(`Arya`)
+}).then(val => {
+    console.log(val)
+    return new Promise((res) => {
+        setTimeout(() => res(`Bran`), 2000)
+    })
+}).then(console.log)
 ```
