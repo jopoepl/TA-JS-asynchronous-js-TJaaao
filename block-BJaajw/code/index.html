@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: bisque;
+            text-align: center;
+        }
+        img {
+            width: 200px;
+            height: 100px;
+        }
+        article {
+            width: 80%;
+            margin: 20px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        } 
+        .text-cont {
+            width: 60%;
+            border: 1px solid black ;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 1px 10px;
+        }
+
+        a {
+            align-self: flex-end;
+        }
+
+        .spinner {
+            display: inline-block;
+            border: 5px solid black;
+            border-left-color: green;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: donut-spin 1.2s linear infinite;
+            margin: 100px auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Space News Everywhere</h1>
+    <label for="news-source">Choose a News Source</label>
+    <select name="news-source" id="news-source">
+        <option value="choose">Choose A Source</option>
+        <option value="SpaceNews">Space News</option>
+        <option value="Spaceflight Now">Space Flight</option>
+        <option value="NASA">NASA</option>
+        <option value="Arstechnica">ARS Technica</option>
+    </select>
+    <div class="cont"></div>
+    <script src="index.js"></script>
+</body>
+</html>
