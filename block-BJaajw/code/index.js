@@ -3,8 +3,19 @@ let cont = document.querySelector(`.cont`)
 let data = "";
 let a = document.querySelector(`a`)
 let newsSource = document.querySelector(`select`)
+let loading = document.createElement(`div`)
+loading.classList.add(`spinner`)
+console.log(loading)
 
 
+function handleSpinner(status = false){
+    if(status){
+        cont.append(loading)
+    } else {
+        cont.removeChild(loading)
+    }
+    
+}
 
 function createUI(data){
     for(let i =0; i< data.length; i++) {
@@ -36,12 +47,13 @@ function createUI(data){
 // }
 
 function fetchData(url){
-    alert(`Fetching Data`)
+    handleSpinner(true)
     fetch(url).then((res) => {
-        if(navigator.onLine === false) {
-            throw new Error("You are Offline")
-        } else {
+        if(navigator.onLine === true) {
+            handleSpinner()
             return res.json()
+        } else {
+            throw new Error("You are Offline")
         }  
     } ).then((data) => {
         if(!Array.isArray(data)){
@@ -56,6 +68,6 @@ function fetchData(url){
         })
         }
         
-    }).catch(error => cont.innerText = error ) 
+    }).catch(error => cont.innerText = ("Check your internet connection") ) 
 }
 fetchData(`https://api.spaceflightnewsapi.net/v3/articles?_limit=30`)
