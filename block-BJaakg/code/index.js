@@ -45,16 +45,31 @@ function displayBooks(book){
 }
 
 
+function handleSpinner(status = false){
+    if(status){
+        cont.innerHTML = `<div class="donut"></div>`
+    }
+}
 
-fetch(`https://www.anapioficeandfire.com/api/books`).then(res => res.json()).then(books => {
+function fetchBooks(url){
+    handleSpinner(true)
+    fetch(url).then(res => res.json()).then(books => {
+        handleSpinner(false)
+        cont.innerHTML = "";
     books.forEach((book) => {
         displayBooks(book)
     })
     close.addEventListener("click", ()=> {
-        cont.innerHTML = ""
-        books.forEach((book) => {
-            displayBooks(book)
+        cont.innerHTML = "";
+            books.forEach((book) => {
+                displayBooks(book)
+            })
         })
-    })
+        
 })
+}
+
+
+fetchBooks(`https://www.anapioficeandfire.com/api/books`)
+
 
